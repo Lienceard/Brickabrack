@@ -1,0 +1,22 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Supprimer brique{%endblock%}
+
+{% block corps %}
+
+<form method="POST" action="{{url_for('supprimer_brique', brique_id=suppr_brique.brique_id)}}">
+	<div>
+		<p>Attention ! Quand vous supprimez une brique, vous supprimez aussi son association avec un plan.<br/>
+		Êtes-vous certain de vouloir supprimer cette brique :  </p>
+		<br/>
+		<p><em>{{suppr_brique.brique_id}}</em> ?</p>
+	</div>
+	<br/>
+	<div>
+      <div>
+          <button type="submit" class="btn btn-info">Confirmer</button>
+      </div>
+  </div>
+</form>
+
+{% endblock %}

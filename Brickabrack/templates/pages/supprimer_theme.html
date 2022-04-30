@@ -1,0 +1,22 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Supprimer thème{%endblock%}
+
+{% block corps %}
+
+<form method="POST" action="{{url_for('supprimer_theme', theme_id=suppr_theme.theme_id)}}">
+	<div>
+		<p>Attention ! Quand vous supprimez une brique, vous supprimez aussi son association avec un plan.<br/>
+			Etes-vous certain de vouloir supprimer ce thème : </p>
+		<br/>
+		<p><em>{{suppr_theme.theme_id}}</em> ?</p>
+	</div>
+	<br/>
+	<div>
+      <div>
+          <button type="submit" class="btn btn-info">Confirmer</button>
+      </div>
+  </div>
+</form>
+
+{% endblock %}

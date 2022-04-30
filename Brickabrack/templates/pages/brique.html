@@ -1,0 +1,76 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}
+    {%if brique %}| brique : {{brique.brique_id}} {% endif %}
+{% endblock %}
+
+{% block corps %}
+    {% if brique %}
+        <h1>Brique de Lego</h1>
+        <dl>
+            <dt>Numéro d'élément : </dt><dd>{{brique.brique_element}}</dd>
+            <dt>Nom officiel de la brique : </dt><dd>{{brique.brique_nom}}</dd>
+            <dt>Elle est contenue dans le(s) plan(s) : </dt>
+                            {% for plan in brique.plans %}
+                                <dd><a class="text-dark" href="{{url_for('plan', plan_id=plan.plan_id)}}">{{plan.plan_ensemble}} {{plan.plan_titre}}</a></dd>
+                             {% endfor  %}
+        </dl>
+
+ {% if brique.authorships %}
+    <table class="table table-bordered">
+                    <thead>
+                      <tr class="table-active">
+                        <th scope="col">Identifiant de la modification</th>
+                        <th scope="col">Date de la modification</th>
+                        <th scope="col">Nom du contributeur</th>
+                    </thead>
+                    <tbody>
+                    {% for modification in brique.authorships %}
+                      <tr>
+                        <td>Identifiant de la modification</td>
+                        <td>{{modification.authorship_date}}</td>
+                        <td>{{modification.u.user_nom}}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+    {% else %}
+            <table class="table table-bordered">
+                    <thead>
+                      <tr class="table-active">
+                        <th scope="col">Historique des modifications</th>
+                      </tr>
+                      <tr>
+                        <td> Cette fiche n'a pas encore été modifiée</td>
+                      </tr>
+                    </thead>
+            </table>
+    {%endif%}
+
+{% if current_user.is_authenticated %}
+            <button type="button" class="btn btn-info btn-sm">
+                <a class="text-light" href="{{url_for('maj_brique', brique_id=brique.brique_id) }}">Modifier la notice</a>
+            </button>
+            <button type="button" class="btn btn-info btn-sm">
+                <a class="text-light" href="{{url_for('supprimer_brique', brique_id=brique.brique_id) }}">Supprimer la notice</a>
+            </button>
+
+        {% endif %}
+
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+    <p><a class="text-dark" href="{{url_for('index_briques')}}">L'index des briques</a><br>
+        <a class="text-dark" href="{{url_for('index_plans')}}">L'index des plans</a><br>
+    </p>
+
+     <center>
+            {% if brique.brique_id == 1 %}
+            <a class="text-dark" href="{{url_for('brique', brique_id=(brique.brique_id + 1))}}">Brique suivante</a>
+            {% elif brique.brique_id == nbr_b %}
+            <a class="text-dark" href="{{url_for('brique', brique_id=(brique.brique_id - 1))}}">Brique précèdente</a>
+            {% else %}
+            <a class="text-dark" href="{{url_for('brique', brique_id=(brique.brique_id - 1))}}">Brique précèdente</a> | <a class="text-dark" href="{{url_for('brique', brique_id=(brique.brique_id + 1))}}">Brique suivante</a>
+            {% endif %}
+        </center>
+{% endblock %}

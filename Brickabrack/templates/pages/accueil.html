@@ -1,0 +1,10 @@
+{% extends "conteneur.html" %}
+{% block corps %}
+<center><h1>Brickabrack !</h1></center>
+{% block afternav %}
+    {% include "partials/recherche.html" %}
+{%endblock%}
+<p>Grâce à Brickabrack, vous ne serez plus en manque d'inspiration. Cette application vous permettra de (re)découvrir plus facilement des plans de construction LEGO. Il vous suffira de saisir le numéro d'élément d'une brique et vous obtiendrez le(s) plan(s) associé(s).</p>
+<p> Vous pouvez également contribuer au développement de l'application. Il faudra alors vous créer un compte utilisateur. Grâce à ce compte, vous pourrez ajouter, modifier, supprimer des briques, des plans et des thèmes. Vous pourrez également associer une brique à un plan. À vous de jouer !</p>
+{% endblock %}
+{% include "partials/footer_accueil.html" %}

@@ -1,0 +1,54 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Recherche de plans{%endblock%}
+
+{% block corps %}
+
+<div>
+    <center>
+        <h2>Recherche de plans de construction</h2>
+    </center>
+        <p>Pour rechercher des briques, complétez le formulaire et cliquez sur "Recherche". Si vous rencontrez des difficultés pour saisir les champs du formulaire, vous pouvez consulter le <a href="{{url_for('glossaire')}}">glossaire.</a></p>
+
+</div>
+<form class="form" method="POST" action="{{url_for('recherche_plans')}}">
+    <div class="form-group row">
+      <label  class="col-sm-2 col-form-label">Numéro d'ensemble</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="plan_ensemble" placeholder=""/>
+      </div>
+    </div>
+     <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Date de sortie</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="plan_date_sortie" placeholder=""/>
+      </div>
+    </div>
+     <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Thème</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="plan_theme" placeholder=""/>
+      </div>
+    </div>
+     <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Numéro d'élément</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="brique" placeholder=""/>
+      </div>
+    </div>
+
+
+        <center>
+      <div>
+        <button type="submit" class="btn btn-primary">Recherche</button>
+      </div>
+    </center>
+</form>
+<br/>
+
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a>
+</button>
+</p>
+{% endblock %}

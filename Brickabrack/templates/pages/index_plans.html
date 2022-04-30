@@ -1,0 +1,39 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}| Index plans : Page {{resultats.page}}{%endblock%}
+
+{% block corps %}
+
+    <h1>L'index des plans</h1>
+    {% if resultats %}
+        <p>Il y a {{resultats.total}} plans qui répondent à votre requête :</p>
+        <ul>
+            {% for plan in resultats.items %}
+                <li><a class="text-dark" href="{{url_for('plan', plan_id=plan.plan_id)}}">{{plan.plan_ensemble}} {{plan.plan_titre}}</a></li>
+            {% endfor %}
+        </ul>
+    <nav aria-label="research-pagination">
+      <ul class="pagination">
+        {%- for page in resultats.iter_pages() %}
+            {% if page %}
+              {% if page != resultats.page %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('index_plans', page=page) }}">{{page}}</a>
+                </li>
+              {% else %}
+                <li class="page-item active disabled">
+                  <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
+                </li>
+              {% endif %}
+
+            {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link">...</a>
+                </li>
+            {% endif %}
+
+        {%- endfor %}
+      </ul>
+    </nav>
+    {% endif %}
+{% endblock %}

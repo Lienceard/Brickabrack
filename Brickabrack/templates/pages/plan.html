@@ -1,0 +1,82 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}
+    {%if plan %}| plan : {{plan.plan_id}} {% endif %}
+{% endblock %}
+
+{% block corps %}
+    {% if plan %}
+        <h1>Plan de construction  Lego</h1>
+        <dl>
+            <dt>Numéro d'ensemble : </dt><dd>{{plan.plan_ensemble}}</dd>
+            <dt>Titre du plan (en français) : </dt><dd>{{plan.plan_titre}}</dd>
+            <dt>Date de sortie : </dt><dd>{{plan.plan_date_sortie}}</dd>
+            <dt>Lien vers le site Lego : </dt><dd><a class="text-dark" href="{{plan.plan_source}}">{{plan.plan_source}}</a></dd>
+            <dt>Thème : </dt><dd>{{plan.theme.theme_nom}}</dd>
+            <dt>Il contient les briques suivantes : </dt>
+                            {% for brique in plan.briques %}
+                                <dd><a class="text-dark" href="{{url_for('brique', brique_id=brique.brique_id) }}">{{brique.brique_element}} {{brique.brique_nom}}</a></dd>
+                             {% endfor  %}
+        </dl>
+
+{% if plan.authorships %}
+    <table class="table table-bordered">
+                    <thead>
+                      <tr class="table-active">
+                        <th scope="col">Identifiant de la modification</th>
+                        <th scope="col">Date de la modification</th>
+                        <th scope="col">Nom du contributeur</th>
+                    </thead>
+                    <tbody>
+                    {% for modification in plan.authorships %}
+                      <tr>
+                        <td>Identifiant de la modification</td>
+                        <td>{{modification.authorship_date}}</td>
+                        <td>{{modification.u.user_nom}}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+    {% else %}
+            <table class="table table-bordered">
+                    <thead>
+                      <tr class="table-active">
+                        <th scope="col">Historique des modifications</th>
+                      </tr>
+                      <tr>
+                        <td> Cette fiche n'a pas encore été modifiée</td>
+                      </tr>
+                    </thead>
+            </table>
+    {%endif%}
+
+ {% if current_user.is_authenticated %}
+            <button type="button" class="btn btn-info btn-sm">
+                <a class="text-light" href="{{url_for('maj_plan', plan_id=plan.plan_id) }}">Modifier la notice</a>
+            </button>
+            <button type="button" class="btn btn-info btn-sm">
+                <a class="text-light" href="{{url_for('supprimer_plan', plan_id=plan.plan_id) }}">Supprimer la notice</a>
+            </button>
+
+        {% endif %}
+
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+
+        <p>
+        <a class="text-dark" href="{{url_for('index_plans')}}">L'index des plans</a><br>
+        <a class="text-dark" href="{{url_for('index_briques')}}">L'index des briques</a><br>
+        <p>
+
+     <center>
+            {% if plan.plan_id == 1 %}
+            <a class="text-dark" href="{{url_for('plan', plan_id=(plan.plan_id + 1))}}">Plan suivant</a>
+            {% elif plan.plan_id == nbr_p %}
+            <a class="text-dark" href="{{url_for('plan', plan_id=(plan.plan_id - 1))}}">Plan précèdent</a>
+            {% else %}
+            <a class="text-dark" href="{{url_for('plan', plan_id=(plan.plan_id - 1))}}">Plan précèdent</a> | <a class="text-dark" href="{{url_for('plan', plan_id=(plan.plan_id + 1))}}">Plan suivant</a>
+            {% endif %}
+        </center>
+
+{% endblock %}

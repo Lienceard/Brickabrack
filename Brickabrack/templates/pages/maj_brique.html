@@ -1,0 +1,40 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+    {% if b %}
+    {% if updated %}
+    	<div class="alert alert-success">
+    		<p>Modification réussie. Merci pour votre contribution.</p>
+    	</div>
+    {% endif %}
+	<center>
+		<h1 class="text-center"> Mise à jour des données de la fiche de la brique.</h1>
+		<p>Si vous rencontrez des difficultés pour saisir les champs du formulaire, vous pouvez consulter le <a href="{{url_for('glossaire')}}">glossaire.</a></p>
+	</center>
+    <form method="POST" action="{{ url_for('maj_brique', brique_id=b.brique_id)}}">
+    	 <div class="mb-3">
+		    <label for="brique_element" class="form-label"><b>Numéro d'élément:</b></label>
+		    <input type="text" name="brique_element" class="form-control {% if 'brique_element' in erreurs%}is-invalid{% endif %}" id="brique_element" aria-describedby="brique_element_help" value="{{b.brique_element}}" />
+		  </div>
+    	 <div class="mb-3">
+		    <label for="brique_nom" class="form-label"><b>Nom de la brique:</b></label>
+		    <input type="text" name="brique_nom" class="form-control {% if 'brique_nom' in erreurs%}is-invalid{% endif %}" id="brique_nom" value="{{b.brique_nom}}" />
+		  </div>
+		<input type="submit" name="Modifier" class="btn btn-info" />
+    </form>
+<br/>
+<p class="text-center">
+
+<button type="button" class="btn btn-danger">
+    <a class="text-light" href="{{url_for('index_briques')}}">Annuler</a>
+</button>
+</p>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a>
+</button>
+</p>
+{% endblock %}

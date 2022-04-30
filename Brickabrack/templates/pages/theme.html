@@ -1,0 +1,71 @@
+{% extends "conteneur.html" %}
+
+{% block titre %}
+    {%if theme %}| theme : {{theme.theme_id}} {% endif %}
+{% endblock %}
+
+{% block corps %}
+    {% if theme %}
+        <h1>Theme</h1>
+        <dl>
+            <dt>numéro du theme : </dt><dd>{{theme.theme_id}}</dd>
+            <dt>nom du theme : </dt><dd>{{theme.theme_nom}}</dd>
+        </dl>
+
+ {% if theme.authorships %}
+    <table class="table table-bordered">
+                    <thead>
+                      <tr class="table-active">
+                        <th scope="col">Identifiant de la modification</th>
+                        <th scope="col">Date de la modification</th>
+                        <th scope="col">Nom du contributeur</th>
+                    </thead>
+                    <tbody>
+                    {% for modification in theme.authorships %}
+                      <tr>
+                        <td>Identifiant de la modification</td>
+                        <td>{{modification.authorship_date}}</td>
+                        <td>{{modification.u.user_nom}}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+    {% else %}
+            <table class="table table-bordered">
+                    <thead>
+                      <tr class="table-active">
+                        <th scope="col">Historique des modifications</th>
+                      </tr>
+                      <tr>
+                        <td> Cette fiche n'a pas encore été modifiée</td>
+                      </tr>
+                    </thead>
+            </table>
+    {%endif%}
+
+{% if current_user.is_authenticated %}
+            <button type="button" class="btn btn-info btn-sm">
+               <a class="text-light" href="{{url_for('maj_theme', theme_id=theme.theme_id) }}">Modifier la notice</a>
+            </button>
+            <button type="button" class="btn btn-info btn-sm">
+                <a class="text-light" href="{{url_for('supprimer_theme', theme_id=theme.theme_id) }}">Supprimer la notice</a>
+            </button>
+
+   {% endif %}
+
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+    <p>
+        <a class="text-dark" href="{{url_for('index_themes')}}">L'index des themes</a><p>
+
+         <center>
+            {% if theme.theme_id == 1 %}
+            <a class="text-dark" href="{{url_for('theme', theme_id=(theme.theme_id + 1))}}">Thème suivant</a>
+            {% elif theme.theme_id == nbr_t %}
+            <a class="text-dark" href="{{url_for('theme', theme_id=(theme.theme_id - 1))}}">Thème précèdent</a>
+            {% else %}
+            <a class="text-dark" href="{{url_for('theme', theme_id=(theme.theme_id - 1))}}">Thème précèdent</a> | <a class="text-dark" href="{{url_for('theme', theme_id=(theme.theme_id + 1))}}">Thème suivant</a>
+            {% endif %}
+        </center>
+{% endblock %}

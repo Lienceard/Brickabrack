@@ -1,0 +1,54 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+    {% if p %}
+    {% if updated %}
+    	<div class="alert alert-success">
+    		<p>Modification réussie. Merci pour votre contribution.</p>
+    	</div>
+    {% endif %}
+	<center>
+		<h1 class="text-center"> Mise à jour des données de la fiche du plan</h1>
+		<p>Si vous rencontrez des difficultés pour saisir les champs du formulaire, vous pouvez consulter le <a href="{{url_for('glossaire')}}">glossaire.</a></p>
+    </center>
+	<form method="POST" action="{{ url_for('maj_plan', plan_id=p.plan_id)}}">
+    	 <div class="mb-3">
+		    <label for="plan_ensemble" class="form-label"><b>Numéro d'ensemble:</b></label>
+		    <input type="text" name="plan_ensemble" class="form-control {% if 'plan_ensemble' in erreurs%}is-invalid{% endif %}" id="plan_ensemble" aria-describedby="plan_ensemble_help" value="{{p.plan_ensemble}}" />
+		  </div>
+    	 <div class="mb-3">
+		    <label for="plan_titre" class="form-label"><b>Titre du plan:</b></label>
+		    <input type="text" name="plan_titre" class="form-control {% if 'plan_titre' in erreurs%}is-invalid{% endif %}" id="plan_titre" value="{{p.plan_titre}}" />
+		  </div>
+    	 <div class="mb-3">
+		    <label for="plan_date_sortie" class="form-label"><b>Date de sortie (AAAA):</b></label>
+		    <input type="text" name="plan_date_sortie" class="form-control {% if 'plan_date_sortie' in erreurs %}is-invalid{% endif %}" id="plan_date_sortie" value="{{p.plan_date_sortie}}" />
+		  </div>
+		 <div class="mb-3">
+		    <label for="plan_theme" class="form-label"><b>Thème du plan:</b></label>
+		    <input type="text" name="plan_theme" class="form-control {% if 'plan_theme' in erreurs %}is-invalid{% endif %}" id="plan_theme" value="{{p.plan_theme}}" />
+		  </div>
+    	 <div class="mb-3">
+		    <label for="plan_source" class="form-label"><b>Lien vers le site officiel Lego:</b></label>
+			 <input type="text" name="plan_source" class="form-control {% if 'plan_source' in erreurs %}is-invalid{% endif %}" id="plan_source" value="{{p.plan_source}}" />
+		  </div>
+
+		<input type="submit" name="Modifier" class="btn btn-info" />
+
+    </form>
+<br/>
+<p class="text-center">
+
+<button type="button" class="btn btn-danger">
+    <a class="text-light" href="{{url_for('index_plans')}}">Annuler</a>
+</button>
+</p>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a>
+</button>
+</p>
+{% endblock %}
