@@ -10,12 +10,14 @@ Brickabrack est également collaborative. Un utilisateur muni d'un compte, peut 
 # Comment installer Brickabrack
 L'application n'est utilisable que sous Linux.
 Pour l'installer, il faut lancer les commmandes suivantes dans un terminal :
-- installer python dans un environnement virtuel dédié à l'application : python3 -m venv env
+- créer un nouveau dossier : mkdir mondossier
+- se déplacer dans ce dossier : cd mondossier
+- installer à l'intérieur python dans un environnement virtuel dédié à l'application : python3 -m venv env
 - initier un dépôt git : git init
 - cloner ce présent répertoire git en faisant "git clone" et l'URL vers le répertoire git sur GitHub. 
 - activer l'environnement virtuel : source env/bin/activate
-- installer les packetages : pip install -r requirements.txt
 - aller dans le dossier "Brickabrack" : cd Brickabrack
+- installer les packetages : pip install -r requirements.txt
 - lancer la commande : python run.py
 # Les sources de l'application
 Par souci de respect des droits d'auteurs, l'application ne peut proposer des images des briques et des plans de construction LEGO. Le nom de brique LEGO et le titre des plans de construction sont ceux du site officiel de la marque.
