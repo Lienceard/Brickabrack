@@ -8,7 +8,7 @@ Le numéro d'élément d'une brique permet d'obtenir le(s) plan(s) de constructi
 Quant au numéro d'ensemble d'un plan de construction LEGO, il permet d'obtenir la ou les briques associé(es).
 Brickabrack est également collaborative. Un utilisateur muni d'un compte, peut ajouter, modifier, supprimer les données d'une brique, d'un plan de construction et d'un thème. Il peut aussi associer une brique à un plan de construction LEGO.
 # Comment installer Brickabrack
-L'application n'est utilisable que sous Linux.
+L'application n'est utilisable que sous Linux. Il faut au préalable avoir installé python3.
 Pour l'installer, il faut lancer les commmandes suivantes dans un terminal :
 - créer un nouveau dossier : mkdir mondossier
 - se déplacer dans ce dossier : cd mondossier
